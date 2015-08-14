@@ -19,7 +19,24 @@ var options = {
 }
 
 //初始值
-chrome.storage.local.get([ "background", "color", "saturate", "contrast", "brightness", "linkColor", "lineHeight", "letterSpacing", "fontSize", "fontFamily", "transition", "isImagesRemove", "isSmartRead", "isAutoRead", "isFullscreen"], function(items) {
+chrome.storage.local.get([
+    "background",
+    "color",
+    "saturate",
+    "contrast",
+    "brightness",
+    "linkColor",
+    "lineHeight",
+    "letterSpacing",
+    "fontSize",
+    "fontFamily",
+    "transition",
+    "isImagesRemove",
+    "isSmartRead",
+    "isAutoRead",
+    "isFullscreen",
+    "whiteList"
+], function(items) {
     if(items["background"])
         options.background = items["background"];
 
@@ -64,6 +81,9 @@ chrome.storage.local.get([ "background", "color", "saturate", "contrast", "brigh
 
     if(items["isFullscreen"])
         options.isFullscreen = items["isFullscreen"];
+
+    if(items["whiteList"])
+        options.whiteList = items["whiteList"];
 
 });
 

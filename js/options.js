@@ -11,6 +11,7 @@ $(function(){
         fontSize        = '',
         fontFamily      = '',
         transition      = '',
+        whiteList       = '',
         isImagesRemove  = false,
         isSmartRead     = false,
         isAutoRead      = false,
@@ -32,7 +33,8 @@ $(function(){
         $link           = $('#link'),
         $saturate       = $('#saturate'),
         $contrast       = $('#contrast'),
-        $brightness     = $('#brightness');
+        $brightness     = $('#brightness'),
+        $whiteList      = $('#whiteList');
 
     //matchcolors
     $matchcolors.click(function(){
@@ -210,7 +212,8 @@ $(function(){
             isImagesRemove : $isImagesRemove.is(":checked"),
             isSmartRead    : $isSmartRead.is(":checked"),
             isAutoRead     : $isAutoRead.is(":checked"),
-            isFullscreen   : $isFullscreen.is(":checked")
+            isFullscreen   : $isFullscreen.is(":checked"),
+            whiteList      : $whiteList.val()
         }
 
         var matchcolors =$("input[name='matchcolors']:checked").val();
@@ -231,12 +234,31 @@ $(function(){
         chrome.storage.local.set({'isSmartRead': options.isSmartRead});
         chrome.storage.local.set({'isAutoRead': options.isAutoRead});
         chrome.storage.local.set({'isFullscreen': options.isFullscreen});
+        chrome.storage.local.set({'whiteList': options.whiteList});
 
         chrome.runtime.sendMessage(options, function(response) {});
     });
 
 
-    chrome.storage.local.get([ "matchcolors", "background", "color", "linkColor", "saturate", "contrast", "brightness", "lineHeight", "letterSpacing", "fontSize", "fontFamily", "transition", "isImagesRemove", "isSmartRead", "isAutoRead", "isFullscreen"], function(items) {
+    chrome.storage.local.get([
+        "matchcolors", 
+        "background",
+        "color",
+        "linkColor",
+        "saturate",
+        "contrast",
+        "brightness",
+        "lineHeight",
+        "letterSpacing",
+        "fontSize",
+        "fontFamily",
+        "transition",
+        "isImagesRemove",
+        "isSmartRead",
+        "isAutoRead",
+        "isFullscreen",
+        "whiteList"
+    ], function(items) {
         var options = items;
 
         if(options["matchcolors"])
@@ -281,7 +303,6 @@ $(function(){
         if(isImagesRemove)
             $isImagesRemove.prop("checked", true);
 
-
         if(options["isSmartRead"])
             isSmartRead = options["isSmartRead"];
 
@@ -300,6 +321,9 @@ $(function(){
         if(isFullscreen)
             $isFullscreen.prop("checked", true);
 
+        if(options["whiteList"])
+            whiteList = options["whiteList"];
+
         $background.val(background).change();
         $color.val(color).change();
         $linkColor.val(linkColor).change();
@@ -311,6 +335,7 @@ $(function(){
         $fontSize.val(fontSize).change();
         $fontFamily.val(fontFamily).change();
         $transition.val(transition).change();
+        $whiteList.val(whiteList);
 
         $("input[name=matchcolors][value='"+matchcolors+"']").attr('checked',true);
 

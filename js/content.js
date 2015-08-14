@@ -133,8 +133,23 @@ function browserAction(options,url){
         filterStyle       = '',
         regex             = '',
         hStyle            = '',
+        whiteListArray    = '',
         $ipushsReadStyle  = $('#ipushsReadStyle');
 
+
+    whiteListArray = options.whiteList.split('\n');
+    
+    for(var i in whiteListArray) {
+        var regexp = whiteListArray[i].replace(/\//g, '\/');
+
+        regexp = regexp.replace(/\./g, '\.');
+        regexp = regexp.replace(/\:/g, '\:');
+
+        if (location_href.match(regexp)) {
+            return false;
+        };
+    }
+    
     if(isBrowserAction === false && location_hostname !== 'www.youtube.com' ){
 
         $ipushsReadStyle.html('');

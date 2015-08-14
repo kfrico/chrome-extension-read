@@ -13,17 +13,20 @@
     <script src="js/colorpicker.js"></script>
     <script src="js/options.js"></script>
     <style type="text/css">
-    body{
+    body {
         background-image: url(images/bg.jpg);
     }
-    .radio{
+    .radio {
         margin-bottom: 15px;
     }
-    .background_css{
+    .background_css {
         width:68.2%;height:30px;display: inline-block;
     }
-    .color_css{
+    .color_css {
         width:31.8%;margin-left:-4px;height:30px;display: inline-block;
+    }
+    #whiteList {
+        width: 100%;
     }
     </style>
 </head>
@@ -246,6 +249,14 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-12">
+                    <label>
+                        白名單(自動舒適閱讀將不會執行)
+                    </label>
+                        <textarea id="whiteList" rows="10"></textarea>
+                    </div>
+                </div>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" id="isImagesRemove" value="is">
@@ -271,6 +282,7 @@
                         全螢幕閱讀
                     </label>
                 </div>
+                </br>
                 <button type="submit" id="save_btn" class="btn btn-primary">儲存</button>
             </div>
         </form>
