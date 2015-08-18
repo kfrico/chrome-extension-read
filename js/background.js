@@ -101,11 +101,29 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 // chrome.runtime.onInstalled.addListener(function(details) {
 //     window.open('http://blog.ipushs.com/chrome-extension-%E8%88%92%E9%81%A9%E9%96%B1%E8%AE%80/');
 // });
-
 //監聽新頁面開啟or重新整理事件
 chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
     if (info.status == "complete") {
         if(options.isAutoRead === true){
+            var whiteListArray = [];
+            whiteListArray = options.whiteList.split('\n');
+            
+            for(var i in whiteListArray) {
+
+                if (whiteListArray[i] == '') {
+                    continue;
+                }
+
+                var regexp = whiteListArray[i].replace(/\//g, '\/');
+
+                regexp = regexp.replace(/\./g, '\.');
+                regexp = regexp.replace(/\:/g, '\:');
+
+                if (tab.url.match(regexp)) {
+                    return false;
+                };
+            }
+
             var data = {
                 options:options,
                 url:tab.url,

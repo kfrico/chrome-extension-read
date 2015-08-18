@@ -1,13 +1,14 @@
 {
   "name": "舒適閱讀",
   "description": "讓網頁配色更適合眼睛閱讀 提供多種配色組合供參考",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "permissions": [
     "activeTab",
     "storage",
     "contextMenus",
     "tabs",
-    "http://*/*", "https://*/*"
+    "http://*/*",
+    "https://*/*"
   ],
   "options_page": "options.html",
   "background": {
