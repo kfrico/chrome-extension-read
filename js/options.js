@@ -1,22 +1,5 @@
 $(function(){
-    var matchcolors     = 'option8',
-        background      = '081010',
-        color           = 'b58931',
-        saturate        = '100',
-        contrast        = '100',
-        brightness      = '100',
-        linkColor       = '',
-        lineHeight      = '',
-        letterSpacing   = '',
-        fontSize        = '',
-        fontFamily      = '',
-        transition      = '',
-        whiteList       = '',
-        isImagesRemove  = false,
-        isSmartRead     = false,
-        isAutoRead      = false,
-        isFullscreen    = false,
-        $matchcolors    = $('.matchcolors'),
+    var $matchcolors    = $('.matchcolors'),
         $background     = $('#background'),
         $color          = $('#color'),
         $linkColor      = $('#linkColor'),
@@ -35,6 +18,26 @@ $(function(){
         $contrast       = $('#contrast'),
         $brightness     = $('#brightness'),
         $whiteList      = $('#whiteList');
+
+    var options = {
+        matchcolors    : 'option8',
+        background     : '081010',
+        color          : 'b58931',
+        saturate       : '100',
+        contrast       : '100',
+        brightness     : '100',
+        linkColor      : '',
+        lineHeight     : '',
+        letterSpacing  : '',
+        fontSize       : '',
+        fontFamily     : '',
+        transition     : '',
+        whiteList      : '',
+        isImagesRemove : false,
+        isSmartRead    : false,
+        isAutoRead     : false,
+        isFullscreen   : false
+    }
 
     //matchcolors
     $matchcolors.click(function(){
@@ -213,135 +216,42 @@ $(function(){
             isSmartRead    : $isSmartRead.is(":checked"),
             isAutoRead     : $isAutoRead.is(":checked"),
             isFullscreen   : $isFullscreen.is(":checked"),
-            whiteList      : $whiteList.val()
+            whiteList      : $whiteList.val(),
+            matchcolors    : $("input[name='matchcolors']:checked").val()
         }
 
-        var matchcolors =$("input[name='matchcolors']:checked").val();
-
-        chrome.storage.local.set({'matchcolors': matchcolors});
-        chrome.storage.local.set({'background': options.background});
-        chrome.storage.local.set({'color': options.color});
-        chrome.storage.local.set({'linkColor': options.linkColor});
-        chrome.storage.local.set({'saturate': options.saturate});
-        chrome.storage.local.set({'contrast': options.contrast});
-        chrome.storage.local.set({'brightness': options.brightness});
-        chrome.storage.local.set({'lineHeight': options.lineHeight});
-        chrome.storage.local.set({'letterSpacing': options.letterSpacing});
-        chrome.storage.local.set({'fontSize': options.fontSize});
-        chrome.storage.local.set({'fontFamily': options.fontFamily});
-        chrome.storage.local.set({'transition': options.transition});
-        chrome.storage.local.set({'isImagesRemove': options.isImagesRemove});
-        chrome.storage.local.set({'isSmartRead': options.isSmartRead});
-        chrome.storage.local.set({'isAutoRead': options.isAutoRead});
-        chrome.storage.local.set({'isFullscreen': options.isFullscreen});
-        chrome.storage.local.set({'whiteList': options.whiteList});
-
+        chrome.storage.local.set({'options': options});
         chrome.runtime.sendMessage(options, function(response) {});
     });
 
 
     chrome.storage.local.get([
-        "matchcolors", 
-        "background",
-        "color",
-        "linkColor",
-        "saturate",
-        "contrast",
-        "brightness",
-        "lineHeight",
-        "letterSpacing",
-        "fontSize",
-        "fontFamily",
-        "transition",
-        "isImagesRemove",
-        "isSmartRead",
-        "isAutoRead",
-        "isFullscreen",
-        "whiteList"
+        "options"
     ], function(items) {
-        var options = items;
+        $.extend(options, items.options);
 
-        if(options["matchcolors"])
-            matchcolors = options["matchcolors"];
+        $background.val(options.background).change();
+        $color.val(options.color).change();
+        $linkColor.val(options.linkColor).change();
+        $saturate.val(options.saturate).change();
+        $contrast.val(options.contrast).change();
+        $brightness.val(options.brightness).change();
+        $lineHeight.val(options.lineHeight).change();
+        $letterSpacing.val(options.letterSpacing).change();
+        $fontSize.val(options.fontSize).change();
+        $fontFamily.val(options.fontFamily).change();
+        $transition.val(options.transition).change();
+        $whiteList.val(options.whiteList);
+        $isImagesRemove.prop("checked", options.isImagesRemove);
+        $isSmartRead.prop("checked", options.isSmartRead);
+        $isAutoRead.prop("checked", options.isAutoRead);
+        $isFullscreen.prop("checked", options.isFullscreen);
 
-        if(options["background"])
-            background = options["background"];
-
-        if(options["color"])
-            color = options["color"];
-
-        if(options["linkColor"])
-            linkColor = options["linkColor"];
-
-        if(options["saturate"])
-            saturate = options["saturate"];
-
-        if(options["contrast"])
-            contrast = options["contrast"];
-
-        if(options["brightness"])
-            brightness = options["brightness"];
-
-        if(options["lineHeight"])
-            lineHeight = options["lineHeight"];
-
-        if(options["letterSpacing"])
-            letterSpacing = options["letterSpacing"];
-
-        if(options["fontSize"])
-            fontSize = options["fontSize"];
-
-        if(options["fontFamily"])
-            fontFamily = options["fontFamily"];
-
-        if(options["transition"])
-            transition = options["transition"];
-
-        if(options["isImagesRemove"])
-            isImagesRemove = options["isImagesRemove"];
-
-        if(isImagesRemove)
-            $isImagesRemove.prop("checked", true);
-
-        if(options["isSmartRead"])
-            isSmartRead = options["isSmartRead"];
-
-        if(isSmartRead)
-            $isSmartRead.prop("checked", true);
-
-        if(options["isAutoRead"])
-            isAutoRead = options["isAutoRead"];
-
-        if(isAutoRead)
-            $isAutoRead.prop("checked", true);
-
-        if(options["isFullscreen"])
-            isFullscreen = options["isFullscreen"];
-
-        if(isFullscreen)
-            $isFullscreen.prop("checked", true);
-
-        if(options["whiteList"])
-            whiteList = options["whiteList"];
-
-        $background.val(background).change();
-        $color.val(color).change();
-        $linkColor.val(linkColor).change();
-        $saturate.val(saturate).change();
-        $contrast.val(contrast).change();
-        $brightness.val(brightness).change();
-        $lineHeight.val(lineHeight).change();
-        $letterSpacing.val(letterSpacing).change();
-        $fontSize.val(fontSize).change();
-        $fontFamily.val(fontFamily).change();
-        $transition.val(transition).change();
-        $whiteList.val(whiteList);
-
-        $("input[name=matchcolors][value='"+matchcolors+"']").attr('checked',true);
+        $("input[name=matchcolors][value='"+options.matchcolors+"']").attr('checked',true);
 
         $( "#saturateSlider" ).slider({
             range: "min",
-            value: saturate,
+            value: options.saturate,
             min: 1,
             max: 200,
             slide: function( event, ui ) {
@@ -351,7 +261,7 @@ $(function(){
 
         $( "#contrastSlider" ).slider({
             range: "min",
-            value: contrast,
+            value: options.contrast,
             min: 1,
             max: 200,
             slide: function( event, ui ) {
@@ -362,7 +272,7 @@ $(function(){
 
         $( "#brightnessSlider" ).slider({
             range: "min",
-            value: brightness,
+            value: options.brightness,
             min: 1,
             max: 200,
             slide: function( event, ui ) {

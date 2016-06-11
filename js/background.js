@@ -20,71 +20,9 @@ var options = {
 
 //初始值
 chrome.storage.local.get([
-    "background",
-    "color",
-    "saturate",
-    "contrast",
-    "brightness",
-    "linkColor",
-    "lineHeight",
-    "letterSpacing",
-    "fontSize",
-    "fontFamily",
-    "transition",
-    "isImagesRemove",
-    "isSmartRead",
-    "isAutoRead",
-    "isFullscreen",
-    "whiteList"
+    "options"
 ], function(items) {
-    if(items["background"])
-        options.background = items["background"];
-
-    if(items["color"])
-        options.color = items["color"];
-
-    if(items["saturate"])
-        options.saturate = items["saturate"];
-
-    if(items["contrast"])
-        options.contrast = items["contrast"];
-
-    if(items["brightness"])
-        options.brightness = items["brightness"];
-
-    if(items["linkColor"])
-        options.linkColor = items["linkColor"];
-
-    if(items["lineHeight"])
-        options.lineHeight = items["lineHeight"];
-
-    if(items["letterSpacing"])
-        options.letterSpacing = items["letterSpacing"];
-
-    if(items["fontSize"])
-        options.fontSize = items["fontSize"];
-
-    if(items["fontFamily"])
-        options.fontFamily = items["fontFamily"];
-
-    if(items["transition"])
-        options.transition = items["transition"];
-
-    if(items["isImagesRemove"])
-        options.isImagesRemove = items["isImagesRemove"];
-
-    if(items["isSmartRead"])
-        options.isSmartRead = items["isSmartRead"];
-
-    if(items["isAutoRead"])
-        options.isAutoRead = items["isAutoRead"];
-
-    if(items["isFullscreen"])
-        options.isFullscreen = items["isFullscreen"];
-
-    if(items["whiteList"])
-        options.whiteList = items["whiteList"];
-
+    options = items.options;
 });
 
 //接收訊息
