@@ -74,6 +74,41 @@ chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
                     chrome.browserAction.setIcon({path:"icon48.png",tabId:tab.id});
             });
         }
+
+        if (options.blackList != '') {
+            var blackListArray = [];
+            blackListArray = options.blackList.split('\n');
+            
+            for(var i in blackListArray) {
+
+                if (blackListArray[i] == '') {
+                    continue;
+                }
+
+                var regexp = blackListArray[i].replace(/\//g, '\/');
+
+                regexp = regexp.replace(/\./g, '\.');
+                regexp = regexp.replace(/\:/g, '\:');
+
+                if (tab.url.match(regexp)) {
+                    var data = {
+                        options:options,
+                        url:tab.url,
+                        actionType:'browserAction'
+                    }
+
+                    chrome.tabs.sendMessage(tab.id, data, function(request){
+                        if(request.readStatus === false)
+                            chrome.browserAction.setIcon({path:"icon48-off.png",tabId:tab.id});
+                        if(request.readStatus === true)
+                            chrome.browserAction.setIcon({path:"icon48.png",tabId:tab.id});
+                    });
+
+                    return true;
+                };
+            }
+
+        }
     }
 });
 

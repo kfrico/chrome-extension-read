@@ -17,7 +17,8 @@ $(function(){
         $saturate       = $('#saturate'),
         $contrast       = $('#contrast'),
         $brightness     = $('#brightness'),
-        $whiteList      = $('#whiteList');
+        $whiteList      = $('#whiteList'),
+        $blackList      = $('#blackList');
 
     var options = {
         matchcolors    : 'option8',
@@ -33,6 +34,7 @@ $(function(){
         fontFamily     : '',
         transition     : '',
         whiteList      : '',
+        blackList      : '',
         isImagesRemove : false,
         isSmartRead    : false,
         isAutoRead     : false,
@@ -217,6 +219,7 @@ $(function(){
             isAutoRead     : $isAutoRead.is(":checked"),
             isFullscreen   : $isFullscreen.is(":checked"),
             whiteList      : $whiteList.val(),
+            blackList      : $blackList.val(),
             matchcolors    : $("input[name='matchcolors']:checked").val()
         }
 
@@ -242,6 +245,7 @@ $(function(){
         $fontFamily.val(options.fontFamily).change();
         $transition.val(options.transition).change();
         $whiteList.val(options.whiteList);
+        $blackList.val(options.blackList);
         $isImagesRemove.prop("checked", options.isImagesRemove);
         $isSmartRead.prop("checked", options.isSmartRead);
         $isAutoRead.prop("checked", options.isAutoRead);
