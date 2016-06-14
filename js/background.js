@@ -1,3 +1,11 @@
+Object.prototype.extend = function(obj) {
+   for (var i in obj) {
+      if (obj.hasOwnProperty(i)) {
+         this[i] = obj[i];
+      }
+   }
+};
+
 var options = {
     background     : '081010',
     color          : 'b58931',
@@ -22,7 +30,7 @@ var options = {
 chrome.storage.local.get([
     "options"
 ], function(items) {
-    options = items.options;
+    options.extend(items.options);
 });
 
 //接收訊息
