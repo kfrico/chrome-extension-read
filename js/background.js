@@ -1,11 +1,3 @@
-Object.prototype.extend = function(obj) {
-   for (var i in obj) {
-      if (obj.hasOwnProperty(i)) {
-         this[i] = obj[i];
-      }
-   }
-};
-
 var options = {
     background     : '081010',
     color          : 'b58931',
@@ -19,6 +11,8 @@ var options = {
     fontFamily     : '',
     textShadow     : 'none',
     transition     : '',
+    whiteList      : '',
+    blackList      : '',
     isImagesRemove : false,
     isSmartRead    : false,
     isAutoRead     : false,
@@ -30,7 +24,11 @@ var options = {
 chrome.storage.local.get([
     "options"
 ], function(items) {
-    options.extend(items.options);
+    for (var i in items.options) {
+        if (items.options.hasOwnProperty(i)) {
+           options[i] = items.options[i];
+        }
+    }
 });
 
 //接收訊息
@@ -53,7 +51,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
         if(options.isAutoRead === true){
             var whiteListArray = [];
             whiteListArray = options.whiteList.split('\n');
-            
+
             for(var i in whiteListArray) {
 
                 if (whiteListArray[i] == '') {
