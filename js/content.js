@@ -199,10 +199,12 @@ function browserAction(options,url){
             $ipushsReadStyle.append('html{-webkit-filter:'+filterStyle+';}');
         }
 
-        isBrowserAction = true;
+        if (!options.hasOwnProperty("loading") || options.loading === false) {
+            isBrowserAction = true;
+        }
+
         return true;
     }
-
 
     if(isBrowserAction === true){
         hideBlock('show');

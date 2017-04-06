@@ -47,7 +47,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
 // });
 //監聽新頁面開啟or重新整理事件
 chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
-    if (info.status == "complete") {
+    if (info.status == "complete" || info.status == "loading") {
         if(options.isAutoRead === true){
             var whiteListArray = [];
             whiteListArray = options.whiteList.split('\n');
@@ -67,6 +67,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
                     return false;
                 };
             }
+
+            options.loading = (info.status == "loading") ? true : false;
 
             var data = {
                 options:options,
