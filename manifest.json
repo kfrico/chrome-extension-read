@@ -1,7 +1,7 @@
 {
   "name": "舒適閱讀",
   "description": "讓網頁配色更適合眼睛閱讀 提供多種配色組合供參考",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "permissions": [
     "activeTab",
     "storage",

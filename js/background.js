@@ -83,7 +83,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
             });
         }
 
-        if (options.blackList != '') {
+        if (options.blackList != '' && options.isAutoRead !== true) {
             var blackListArray = [];
             blackListArray = options.blackList.split('\n');
             
@@ -99,6 +99,8 @@ chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
                 regexp = regexp.replace(/\:/g, '\:');
 
                 if (tab.url.match(regexp)) {
+                    options.loading = (info.status == "loading") ? true : false;
+
                     var data = {
                         options:options,
                         url:tab.url,
@@ -115,7 +117,6 @@ chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
                     return true;
                 };
             }
-
         }
     }
 });

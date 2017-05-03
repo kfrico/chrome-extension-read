@@ -13,6 +13,10 @@ Chorem extension 安裝連結 [here](https://chrome.google.com/webstore/detail/%
 更改網站配色、字體、亮度、對比度、大小、行高、間距讓網頁文章更適合閱讀
 提供多種配色組合，讓閱讀無壓力
 
+####version:1.7.5
+
+* 修改黑名單無效的問題
+
 ####version:1.7.4
 
 * 修改自動載入延遲問題
