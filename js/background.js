@@ -20,6 +20,10 @@ var options = {
     selectText     : ''
 }
 
+// 插入以下全局變數定義
+var iconOn = chrome.runtime.getURL("icon48.png");
+var iconOff = chrome.runtime.getURL("icon48-off.png");
+
 //初始值
 chrome.storage.local.get([
     "options"
@@ -77,9 +81,9 @@ chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
             }
             chrome.tabs.sendMessage(tab.id, data, function(request){
                 if(request.readStatus === false)
-                    chrome.browserAction.setIcon({path:"icon48-off.png",tabId:tab.id});
+                    chrome.action.setIcon({path: iconOff, tabId: tab.id});
                 if(request.readStatus === true)
-                    chrome.browserAction.setIcon({path:"icon48.png",tabId:tab.id});
+                    chrome.action.setIcon({path: iconOn, tabId: tab.id});
             });
         }
 
@@ -109,9 +113,9 @@ chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
 
                     chrome.tabs.sendMessage(tab.id, data, function(request){
                         if(request.readStatus === false)
-                            chrome.browserAction.setIcon({path:"icon48-off.png",tabId:tab.id});
+                            chrome.action.setIcon({path: iconOff, tabId: tab.id});
                         if(request.readStatus === true)
-                            chrome.browserAction.setIcon({path:"icon48.png",tabId:tab.id});
+                            chrome.action.setIcon({path: iconOn, tabId: tab.id});
                     });
 
                     return true;
@@ -122,7 +126,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, info, tab) {
 });
 
 //監聽browser按鈕事件
-chrome.browserAction.onClicked.addListener(function(tab) {
+chrome.action.onClicked.addListener(function(tab) {
     var data = {
         options:options,
         url:tab.url,
@@ -130,9 +134,9 @@ chrome.browserAction.onClicked.addListener(function(tab) {
     }
     chrome.tabs.sendMessage(tab.id, data, function(request){
         if(request.readStatus === false)
-            chrome.browserAction.setIcon({path:"icon48-off.png",tabId:tab.id});
+            chrome.action.setIcon({path: iconOff, tabId: tab.id});
         if(request.readStatus === true)
-            chrome.browserAction.setIcon({path:"icon48.png",tabId:tab.id});
+            chrome.action.setIcon({path: iconOn, tabId: tab.id});
     });
 });
 
@@ -143,35 +147,13 @@ chrome.contextMenus.create({
     "title"   : "區塊舒適",
     "parentId": "parent",
     "id"      : "toBlock",
-    "contexts": ["page", "frame", "link", "editable", "image", "video", "audio"],
-    "onclick" : function(info, tab){
-        var data = {
-            options:options,
-            actionType:'toBlock'
-        }
-        chrome.tabs.sendMessage(tab.id, data, function(request){
-            if(request.readStatus === true)
-                chrome.browserAction.setIcon({path:"icon48.png",tabId:tab.id});
-        });
-    }
+    "contexts": ["page", "frame", "link", "editable", "image", "video", "audio"]
 })
 chrome.contextMenus.create({
     "title"   : "區塊隱藏",
     "parentId": "parent",
     "id"      : "hideBlock",
-    "contexts": ["page", "frame", "link", "editable", "image", "video", "audio"],
-    "onclick" : function(info, tab){
-        var data = {
-            options:options,
-            actionType:'hideBlock'
-        }
-        chrome.tabs.sendMessage(tab.id, data, function(request){
-            if(request.readStatus === false)
-                chrome.browserAction.setIcon({path:"icon48-off.png",tabId:tab.id});
-            if(request.readStatus === true)
-                chrome.browserAction.setIcon({path:"icon48.png",tabId:tab.id});
-        });
-    }
+    "contexts": ["page", "frame", "link", "editable", "image", "video", "audio"]
 })
 // chrome.contextMenus.create({
 //     "title"   : "選擇閱讀",
@@ -187,3 +169,29 @@ chrome.contextMenus.create({
 //         chrome.tabs.sendMessage(tab.id, data, function(){});
 //     }
 // })
+
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+    if (info.menuItemId === "toBlock") {
+        var data = {
+            options: options,
+            actionType: 'toBlock'
+        };
+        chrome.tabs.sendMessage(tab.id, data, function(request){
+            if(request && request.readStatus === true)
+                chrome.action.setIcon({path: iconOn, tabId: tab.id});
+        });
+    } else if (info.menuItemId === "hideBlock") {
+        var data = {
+            options: options,
+            actionType: 'hideBlock'
+        };
+        chrome.tabs.sendMessage(tab.id, data, function(request){
+            if(request) {
+                if(request.readStatus === false)
+                    chrome.action.setIcon({path: iconOff, tabId: tab.id});
+                else if(request.readStatus === true)
+                    chrome.action.setIcon({path: iconOn, tabId: tab.id});
+            }
+        });
+    }
+});

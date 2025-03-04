@@ -1,21 +1,25 @@
 {
   "name": "舒適閱讀",
   "description": "讓網頁配色更適合眼睛閱讀 提供多種配色組合供參考",
-  "version": "1.7.5",
+  "version": "1.8.0",
   "permissions": [
     "activeTab",
     "storage",
     "contextMenus",
-    "tabs",
+    "tabs"
+  ],
+  "host_permissions": [
     "http://*/*",
     "https://*/*"
   ],
-  "options_page": "options.html",
-  "background": {
-    "scripts": ["js/background.js"],
-    "persistent": true
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
   },
-  "browser_action": {
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "action": {
     "default_icon": "icon48-off.png",
     "default_title": "舒適閱讀"
   },
@@ -27,7 +31,7 @@
       "run_at":"document_start"
     }
   ],
-  "manifest_version": 2,
+  "manifest_version": 3,
   "icons": { 
     "16": "icon16.png",
     "48": "icon48.png",
