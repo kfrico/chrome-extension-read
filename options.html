@@ -385,6 +385,92 @@
     .radio {
         display: none;
     }
+
+    /* Custom Font Section */
+    .custom-font-section {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border-color);
+    }
+
+    .custom-font-tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .font-tab {
+        flex: 1;
+        padding: 8px 12px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        color: var(--text-secondary);
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+    }
+
+    .font-tab:hover {
+        border-color: #555;
+    }
+
+    .font-tab.active {
+        background: #333;
+        border-color: #555;
+        color: var(--text-primary);
+    }
+
+    .font-upload-area {
+        border: 2px dashed var(--border-color);
+        border-radius: 6px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .font-upload-area:hover,
+    .font-upload-area.dragover {
+        border-color: #555;
+        background: rgba(255,255,255,0.02);
+    }
+
+    .upload-placeholder {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        color: var(--text-secondary);
+    }
+
+    .upload-placeholder small {
+        font-size: 12px;
+        opacity: 0.7;
+    }
+
+    .upload-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: var(--text-primary);
+    }
+
+    .clear-font-btn {
+        background: #444;
+        border: none;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        color: #ccc;
+        cursor: pointer;
+        font-size: 14px;
+        line-height: 1;
+    }
+
+    .clear-font-btn:hover {
+        background: #555;
+    }
     </style>
 </head>
 <body>
@@ -546,7 +632,31 @@
                                 <option value="細明體">細明體</option>
                                 <option value="Arial">Arial</option>
                                 <option value="Helvetica">Helvetica</option>
+                                <option value="__custom__">自定義字體...</option>
                             </select>
+                        </div>
+                    </div>
+                    <div class="form-group custom-font-section" id="customFontSection" style="display:none;">
+                        <label>自定義字體</label>
+                        <div class="custom-font-tabs">
+                            <button type="button" class="font-tab active" data-tab="upload">上傳字體</button>
+                            <button type="button" class="font-tab" data-tab="local">本地字體</button>
+                        </div>
+                        <div class="font-tab-content" id="uploadTab">
+                            <div class="font-upload-area" id="fontUploadArea">
+                                <input type="file" id="fontFileInput" accept=".ttf,.otf,.woff,.woff2" style="display:none;">
+                                <div class="upload-placeholder" id="uploadPlaceholder">
+                                    <span>點擊或拖曳字體檔案</span>
+                                    <small>.ttf, .otf, .woff, .woff2</small>
+                                </div>
+                                <div class="upload-info" id="uploadInfo" style="display:none;">
+                                    <span id="uploadedFontName"></span>
+                                    <button type="button" id="clearFontBtn" class="clear-font-btn">×</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="font-tab-content" id="localTab" style="display:none;">
+                            <input type="text" class="form-control" id="localFontName" placeholder="輸入系統字體名稱，如：思源黑體">
                         </div>
                     </div>
                     <div class="form-row">

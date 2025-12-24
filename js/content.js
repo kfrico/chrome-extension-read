@@ -2,6 +2,7 @@ var isBrowserAction = false;
 //初始時加入一個style
 $('<style>.ipushsHideBlock{display:none !important;}</style>').prependTo('html');
 $('<style id="ipushsReadStyle"></style>').prependTo('html');
+$('<style id="ipushsCustomFont"></style>').prependTo('html');
 
 
 $(function(){
@@ -102,13 +103,15 @@ function toBlock(options){
         }
     }
 
-    if(options.fontFamily != '')
-        styletext += 'font-family:'+options.fontFamily+' !important;';
+        if(options.fontFamily != '') {
+            var fontFamilyValue = injectCustomFont(options);
+            styletext += 'font-family:'+fontFamilyValue+' !important;';
+        }
 
-    if(options.textShadow != '')
-        styletext += 'text-shadow:'+options.textShadow+' !important;';
+        if(options.textShadow != '')
+            styletext += 'text-shadow:'+options.textShadow+' !important;';
 
-    $ipushsReadStyle.html('.ipushsToBlockClass, .ipushsToBlockClass *{'+styletext+'}');
+        $ipushsReadStyle.html('.ipushsToBlockClass, .ipushsToBlockClass *{'+styletext+'}');
     $ipushsReadStyle.append('.ipushsToBlockClass{font-size:'+options.fontSize+'!important;}');
     $ipushsReadStyle.append('.ipushsToBlockClass a{'+linkColorStyle+'}');
 
@@ -180,8 +183,10 @@ function browserAction(options,url){
             }
         }
 
-        if(options.fontFamily != '')
-            styletext += 'font-family:'+options.fontFamily+' !important;';
+        if(options.fontFamily != '') {
+            var fontFamilyValue = injectCustomFont(options);
+            styletext += 'font-family:'+fontFamilyValue+' !important;';
+        }
 
         if(options.textShadow != '')
             styletext += 'text-shadow:'+options.textShadow+' !important;';
@@ -210,6 +215,7 @@ function browserAction(options,url){
         hideBlock('show');
         hideImages('show');
         $ipushsReadStyle.html('');
+        $('#ipushsCustomFont').html('');
         isBrowserAction = false;
         return false
     }
@@ -327,4 +333,30 @@ function launchFullscreen() {
     } else if(element.msRequestFullscreen) {
         element.msRequestFullscreen();
     }
+}
+
+function injectCustomFont(options) {
+    var $customFontStyle = $('#ipushsCustomFont');
+    $customFontStyle.html('');
+    
+    if(options.fontFamily === '__custom__') {
+        // 上傳的字體
+        if(options.customFontData && options.customFontName && options.customFontType && options.customFontType !== 'local') {
+            var format = options.customFontType === 'ttf' ? 'truetype' :
+                         options.customFontType === 'otf' ? 'opentype' :
+                         options.customFontType === 'woff2' ? 'woff2' : 'woff';
+            
+            $customFontStyle.html(
+                '@font-face { font-family: "CustomUploadedFont"; ' +
+                'src: url("' + options.customFontData + '") format("' + format + '"); }'
+            );
+            return '"CustomUploadedFont"';
+        }
+        // 本地字體
+        if(options.customFontName) {
+            return '"' + options.customFontName + '"';
+        }
+        return '';  // 沒有設定自定義字體
+    }
+    return options.fontFamily;
 }
