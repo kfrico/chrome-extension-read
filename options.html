@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -17,19 +17,13 @@
     <script src="js/options.js"></script>
     <style type="text/css">
     :root {
-        --bg-primary: #121212;
-        --bg-secondary: #1e1e1e;
-        --bg-card: rgba(30, 30, 30, 0.85);
-        --bg-card-hover: rgba(45, 45, 45, 0.9);
-        --accent: #505050;
-        --accent-light: #888888;
-        --accent-glow: rgba(100, 100, 100, 0.25);
-        --text-primary: #e8e8e8;
-        --text-secondary: #999999;
-        --border-color: rgba(255, 255, 255, 0.1);
-        --success: #10b981;
-        --radius: 12px;
-        --radius-sm: 8px;
+        --bg-primary: #111;
+        --bg-secondary: #1a1a1a;
+        --bg-card: rgba(24, 24, 24, 0.95);
+        --text-primary: #e0e0e0;
+        --text-secondary: #888;
+        --border-color: rgba(255, 255, 255, 0.08);
+        --accent: #555;
     }
 
     *, *::before, *::after {
@@ -37,109 +31,112 @@
     }
 
     html {
-        font-size: 12px !important;
+        font-size: 14px !important;
     }
 
     body {
         font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif !important;
         background: var(--bg-primary);
-        background-image: 
-            radial-gradient(ellipse at top left, rgba(80, 80, 80, 0.15) 0%, transparent 50%),
-            radial-gradient(ellipse at bottom right, rgba(60, 60, 60, 0.1) 0%, transparent 50%);
         min-height: 100vh;
         color: var(--text-primary);
-        line-height: 1.7;
-        font-size: 12px !important;
+        line-height: 1.5;
+        font-size: 14px !important;
+        margin: 0;
+        padding: 0;
     }
 
     .container {
         max-width: 1200px;
-        padding: 40px 20px;
+        padding: 24px 20px;
+        margin: 0 auto;
     }
 
     /* Header */
     .page-header {
-        text-align: center;
-        margin-bottom: 40px;
-        padding-bottom: 30px;
+        margin-bottom: 24px;
+        padding-bottom: 18px;
         border-bottom: 1px solid var(--border-color);
     }
 
     .page-header h1 {
-        font-size: 2.5rem !important;
-        font-weight: 700;
-        background: linear-gradient(135deg, #e0e0e0, #888888);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        margin-bottom: 10px;
+        font-size: 22px !important;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 0 0 6px 0;
     }
 
     .page-header p {
         color: var(--text-secondary);
-        font-size: 1.1rem !important;
+        font-size: 14px !important;
+        margin: 0;
+    }
+
+    /* Main Layout - 三欄式 */
+    .main-grid {
+        display: grid;
+        grid-template-columns: 300px 1fr 340px;
+        gap: 20px;
+        align-items: start;
+    }
+
+    @media (max-width: 1000px) {
+        .main-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+        .preview-section {
+            grid-column: span 2;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .main-grid {
+            grid-template-columns: 1fr;
+        }
+        .preview-section {
+            grid-column: span 1;
+        }
     }
 
     /* Card Style */
     .card {
         background: var(--bg-card);
-        backdrop-filter: blur(20px);
         border: 1px solid var(--border-color);
-        border-radius: var(--radius);
-        padding: 28px;
-        margin-bottom: 28px;
-        transition: all 0.3s ease;
-    }
-
-    .card:hover {
-        background: var(--bg-card-hover);
-        border-color: rgba(150, 150, 150, 0.25);
+        border-radius: 8px;
+        padding: 18px;
+        margin-bottom: 16px;
     }
 
     .card-title {
-        font-size: 1.35rem !important;
+        font-size: 15px !important;
         font-weight: 600;
         color: var(--text-primary);
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-
-    .card-title::before {
-        content: '';
-        width: 4px;
-        height: 20px;
-        background: linear-gradient(180deg, #666, #999);
-        border-radius: 2px;
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border-color);
     }
 
     /* Preview Panel */
     #fontModel {
         background: #081010;
         color: #b58931;
-        border-radius: var(--radius);
-        padding: 30px;
-        line-height: 1.8;
-        font-size: 15px;
-        min-height: 300px;
-        box-shadow: 
-            0 4px 20px rgba(0, 0, 0, 0.3),
-            inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        border-radius: 6px;
+        padding: 20px;
+        line-height: 1.7;
+        font-size: 14px;
+        min-height: 220px;
         transition: all 0.3s ease;
     }
 
     #fontModel #link {
         color: inherit;
         text-decoration: underline;
-        text-underline-offset: 3px;
     }
 
-    /* Color Scheme Options */
+    /* Color Scheme Options - 緊湊網格 */
     .color-schemes {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-        gap: 12px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
     }
 
     .color-option {
@@ -158,22 +155,15 @@
 
     .color-swatch {
         display: flex;
-        border-radius: var(--radius-sm);
+        border-radius: 5px;
         overflow: hidden;
-        height: 48px;
+        height: 34px;
         border: 2px solid transparent;
-        transition: all 0.2s ease;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        transition: all 0.15s ease;
     }
 
     .color-option input:checked + .color-swatch {
-        border-color: var(--accent);
-        box-shadow: 0 0 0 3px var(--accent-glow);
-        transform: scale(1.02);
-    }
-
-    .color-option:hover .color-swatch {
-        transform: scale(1.02);
+        border-color: #888;
     }
 
     .color-swatch .bg-half {
@@ -189,286 +179,225 @@
         align-items: center;
         justify-content: center;
         background: var(--bg-secondary);
-        border: 2px dashed var(--border-color);
-        border-radius: var(--radius-sm);
-        height: 48px;
+        border: 1px dashed var(--border-color);
+        border-radius: 5px;
+        height: 34px;
         color: var(--text-secondary);
-        font-size: 0.95rem !important;
-        transition: all 0.2s ease;
+        font-size: 13px !important;
     }
 
     .color-option input:checked + .custom-option {
         border-color: #888;
         border-style: solid;
         color: #ccc;
-        background: rgba(100, 100, 100, 0.15);
     }
 
     /* Form Controls */
     .form-group {
-        margin-bottom: 20px;
+        margin-bottom: 12px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
     }
 
     .control-label, label {
         display: block;
-        font-size: 1rem !important;
+        font-size: 13px !important;
         font-weight: 500;
         color: var(--text-secondary);
-        margin-bottom: 10px;
+        margin-bottom: 6px;
     }
 
     .form-control {
         background: var(--bg-secondary) !important;
         border: 1px solid var(--border-color) !important;
-        border-radius: var(--radius-sm) !important;
+        border-radius: 5px !important;
         color: var(--text-primary) !important;
-        padding: 14px 18px !important;
-        font-size: 1rem !important;
-        transition: all 0.2s ease;
+        padding: 8px 10px !important;
+        font-size: 14px !important;
         width: 100%;
         height: auto !important;
     }
 
     .form-control:focus {
         outline: none;
-        border-color: #666;
-        box-shadow: 0 0 0 3px rgba(100, 100, 100, 0.2);
-        background: rgba(40, 40, 40, 0.95);
-    }
-
-    .form-control::placeholder {
-        color: var(--text-secondary);
-        opacity: 0.6;
+        border-color: #555 !important;
     }
 
     select.form-control {
         cursor: pointer;
         appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23a0a0b0' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 12px center;
-        padding-right: 36px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23888' d='M5 7L1 3h8z'/%3E%3C/svg%3E") !important;
+        background-repeat: no-repeat !important;
+        background-position: right 10px center !important;
+        padding-right: 28px !important;
     }
 
     textarea.form-control {
         resize: vertical;
-        min-height: 120px;
-        font-family: 'Monaco', 'Consolas', monospace;
-        font-size: 0.95rem !important;
-        line-height: 1.7;
+        min-height: 70px;
+        font-family: monospace;
+        font-size: 13px !important;
+        line-height: 1.5;
     }
 
     /* Sliders */
-    .slider-group {
-        padding: 8px 0;
+    .slider-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .slider-group label {
+        font-size: 13px !important;
+        margin-bottom: 8px;
     }
 
     .ui-slider {
-        background: var(--bg-secondary) !important;
+        background: #222 !important;
         border: none !important;
-        border-radius: 4px !important;
-        height: 6px !important;
-        margin: 10px 0 !important;
+        border-radius: 3px !important;
+        height: 5px !important;
+        margin: 10px 0 8px !important;
     }
 
     .ui-slider .ui-slider-range {
-        background: linear-gradient(90deg, #555, #888) !important;
-        border-radius: 4px !important;
+        background: #555 !important;
+        border-radius: 3px !important;
     }
 
     .ui-slider .ui-slider-handle {
-        background: var(--text-primary) !important;
+        background: #ddd !important;
         border: none !important;
         border-radius: 50% !important;
-        width: 18px !important;
-        height: 18px !important;
-        top: -6px !important;
+        width: 14px !important;
+        height: 14px !important;
+        top: -5px !important;
         cursor: grab !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
-        transition: transform 0.1s ease !important;
     }
 
-    .ui-slider .ui-slider-handle:hover,
-    .ui-slider .ui-slider-handle:active {
-        transform: scale(1.1);
-    }
-
-    /* Checkboxes */
-    .checkbox-group {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
+    /* Checkboxes - 橫向排列 */
+    .checkbox-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
     }
 
     .checkbox-item {
         display: flex;
         align-items: center;
-        gap: 12px;
-        padding: 12px 16px;
+        gap: 8px;
+        padding: 8px 10px;
         background: var(--bg-secondary);
-        border-radius: var(--radius-sm);
+        border-radius: 5px;
         cursor: pointer;
-        transition: all 0.2s ease;
-        border: 1px solid transparent;
-    }
-
-    .checkbox-item:hover {
-        background: rgba(40, 40, 65, 0.8);
+        font-size: 13px !important;
     }
 
     .checkbox-item input[type="checkbox"] {
         appearance: none;
-        width: 20px;
-        height: 20px;
-        border: 2px solid var(--border-color);
-        border-radius: 5px;
+        width: 16px;
+        height: 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
         background: var(--bg-primary);
         cursor: pointer;
         position: relative;
         flex-shrink: 0;
-        transition: all 0.2s ease;
     }
 
     .checkbox-item input[type="checkbox"]:checked {
-        background: #666;
-        border-color: #666;
+        background: #555;
+        border-color: #555;
     }
 
     .checkbox-item input[type="checkbox"]:checked::after {
         content: '';
         position: absolute;
-        left: 6px;
+        left: 5px;
         top: 2px;
-        width: 5px;
-        height: 10px;
+        width: 4px;
+        height: 8px;
         border: solid white;
         border-width: 0 2px 2px 0;
         transform: rotate(45deg);
     }
 
     .checkbox-item span {
-        font-size: 1.05rem !important;
         color: var(--text-primary);
-    }
-
-    /* Two Column Grid */
-    .two-col {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
-
-    @media (max-width: 600px) {
-        .two-col {
-            grid-template-columns: 1fr;
-        }
     }
 
     /* Save Button */
     #save_btn {
         width: 100%;
-        padding: 18px 32px;
-        font-size: 1.15rem !important;
+        padding: 12px 20px;
+        font-size: 15px !important;
         font-weight: 600;
-        background: linear-gradient(135deg, #444, #333) !important;
-        border: 1px solid #555 !important;
-        border-radius: var(--radius-sm) !important;
+        background: #333 !important;
+        border: 1px solid #444 !important;
+        border-radius: 5px !important;
         color: #eee !important;
         cursor: pointer;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: background 0.2s;
+        margin-top: 10px;
     }
 
     #save_btn:hover {
-        transform: translateY(-2px);
-        background: linear-gradient(135deg, #555, #444);
-        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
+        background: #444 !important;
     }
 
-    #save_btn:active {
-        transform: translateY(0);
+    /* Lists Section */
+    .list-section {
+        margin-top: 10px;
     }
 
-    /* Main Layout */
-    .main-grid {
-        display: grid;
-        grid-template-columns: 1fr 1.2fr;
-        gap: 30px;
-        align-items: start;
-    }
-
-    @media (max-width: 900px) {
-        .main-grid {
-            grid-template-columns: 1fr;
-        }
-        
-        .preview-section {
-            order: -1;
-        }
-    }
-
-    .settings-section {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-    }
-
-    /* Section spacing */
-    .section-divider {
-        height: 1px;
-        background: var(--border-color);
-        margin: 8px 0;
-    }
-
-    /* Textarea labels */
     .list-label {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 1rem !important;
+        font-size: 13px !important;
         color: var(--text-secondary);
-        margin-bottom: 10px;
+        margin-bottom: 6px;
+        display: flex;
+        gap: 6px;
     }
 
     .list-label .hint {
-        font-size: 0.9rem !important;
-        color: var(--text-secondary);
-        opacity: 0.7;
+        opacity: 0.6;
+    }
+
+    /* Column sections */
+    .left-col, .middle-col {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Compact inputs in a row */
+    .input-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 12px;
     }
 
     /* Hide old radio styling */
     .radio {
         display: none;
     }
-
-    /* Animation */
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .card {
-        animation: fadeIn 0.4s ease forwards;
-    }
-
-    .card:nth-child(1) { animation-delay: 0s; }
-    .card:nth-child(2) { animation-delay: 0.1s; }
-    .card:nth-child(3) { animation-delay: 0.2s; }
-    .card:nth-child(4) { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="page-header">
-        <h1>舒適閱讀</h1>
-        <p>自訂您的閱讀體驗，讓眼睛更舒適</p>
+        <h1>舒適閱讀設定</h1>
+        <p>自訂您的閱讀體驗</p>
     </div>
 
     <form role="form">
         <div class="main-grid">
-            <!-- Settings Column -->
-            <div class="settings-section">
-                <!-- Color Schemes Card -->
+            <!-- 左欄：配色 + 進階選項 -->
+            <div class="left-col">
                 <div class="card">
                     <div class="card-title">配色方案</div>
                     <div class="color-schemes">
@@ -530,118 +459,27 @@
                     </label>
                         <label class="color-option">
                     <input type="radio" name="matchcolors" class="matchcolors" value="option9">
-                            <div class="custom-option">✨ 自定義</div>
+                            <div class="custom-option">自定義</div>
                   </label>
                 </div>
-
-                    <div class="section-divider" style="margin-top: 20px;"></div>
-
-                    <div class="two-col" style="margin-top: 16px;">
+                    <div class="input-row">
                         <div class="form-group">
-                            <label class="control-label" for="background">背景顏色</label>
-                            <input type="text" class="form-control" id="background" placeholder="#000000">
+                            <label for="background">背景色</label>
+                            <input type="text" class="form-control" id="background">
                         </div>
                         <div class="form-group">
-                            <label class="control-label" for="color">文字顏色</label>
-                            <input type="text" class="form-control" id="color" placeholder="#FFFFFF">
+                            <label for="color">文字色</label>
+                            <input type="text" class="form-control" id="color">
                         </div>
                     </div>
                 </div>
 
-                <!-- Adjustments Card -->
-                <div class="card">
-                    <div class="card-title">顯示調整</div>
-                    <div class="two-col">
-                        <div class="slider-group">
-                        <label class="control-label" for="saturate">飽和度</label>
-                        <div id="saturateSlider"></div>
-                            <input type="text" class="form-control" id="saturate" placeholder="100">
-                    </div>
-                        <div class="slider-group">
-                        <label class="control-label" for="contrast">對比度</label>
-                        <div id="contrastSlider"></div>
-                            <input type="text" class="form-control" id="contrast" placeholder="100">
-                        </div>
-                    </div>
-                    <div class="two-col">
-                        <div class="slider-group">
-                        <label class="control-label" for="brightness">亮度</label>
-                        <div id="brightnessSlider"></div>
-                            <input type="text" class="form-control" id="brightness" placeholder="100">
-                    </div>
-                        <div class="form-group">
-                            <label class="control-label" for="linkColor">連結顏色</label>
-                            <input type="text" class="form-control" id="linkColor" placeholder="預設文字顏色">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Typography Card -->
-                <div class="card">
-                    <div class="card-title">文字排版</div>
-                    <div class="two-col">
-                        <div class="form-group">
-                            <label class="control-label" for="fontSize">文字大小</label>
-                            <input type="text" class="form-control" id="fontSize" placeholder="預設">
-                        </div>
-                        <div class="form-group">
-                            <label for="fontFamily">文字字體</label>
-                            <select id="fontFamily" class="form-control">
-                                <option value="">預設</option>
-                                <option style="font-family:微軟正黑體" value="微軟正黑體">微軟正黑體</option>
-                                <option style="font-family:新細明體" value="新細明體">新細明體</option>
-                                <option style="font-family:細明體" value="細明體">細明體</option>
-                                <option style="font-family:宋體" value="宋體">宋體</option>
-                                <option style="font-family:Arial" value="Arial">Arial</option>
-                                <option style="font-family:Helvetica" value="Helvetica">Helvetica</option>
-                                <option style="font-family:sans-serif" value="sans-serif">sans-serif</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="two-col">
-                        <div class="form-group">
-                            <label class="control-label" for="lineHeight">行高</label>
-                            <input type="text" class="form-control" id="lineHeight" placeholder="預設">
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label" for="letterSpacing">字距</label>
-                            <input type="text" class="form-control" id="letterSpacing" placeholder="預設">
-                    </div>
-                </div>
-                    <div class="two-col">
-                        <div class="form-group">
-                            <label class="control-label" for="transition">漸變秒數</label>
-                            <input type="text" class="form-control" id="transition" placeholder="0">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Lists Card -->
-                <div class="card">
-                    <div class="card-title">網站清單</div>
-                    <div class="form-group">
-                        <div class="list-label">
-                            <span>白名單</span>
-                            <span class="hint">（不會自動套用舒適閱讀）</span>
-                        </div>
-                        <textarea id="whiteList" class="form-control" rows="5" placeholder="每行一個網址..."></textarea>
-                    </div>
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <div class="list-label">
-                            <span>黑名單</span>
-                            <span class="hint">（自動套用舒適閱讀）</span>
-                </div>
-                        <textarea id="blackList" class="form-control" rows="5" placeholder="每行一個網址..."></textarea>
-                    </div>
-                </div>
-
-                <!-- Options Card -->
                 <div class="card">
                     <div class="card-title">進階選項</div>
-                    <div class="checkbox-group">
+                    <div class="checkbox-grid">
                         <label class="checkbox-item">
-                        <input type="checkbox" id="isImagesRemove" value="is">
-                            <span>隱藏圖片只留文字</span>
+                            <input type="checkbox" id="isImagesRemove" value="is">
+                            <span>隱藏圖片</span>
                         </label>
                         <label class="checkbox-item">
                             <input type="checkbox" id="isSmartRead" value="is">
@@ -649,51 +487,127 @@
                         </label>
                         <label class="checkbox-item">
                             <input type="checkbox" id="isAutoRead" value="is">
-                            <span>自動舒適閱讀</span>
+                            <span>自動套用</span>
                         </label>
                         <label class="checkbox-item">
                             <input type="checkbox" id="isFullscreen" value="is">
-                            <span>全螢幕閱讀</span>
-                    </label>
+                            <span>全螢幕</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 中欄：調整設定 -->
+            <div class="middle-col">
+                <div class="card">
+                    <div class="card-title">顯示調整</div>
+                    <div class="slider-row">
+                        <div class="slider-group">
+                            <label for="saturate">飽和度</label>
+                            <div id="saturateSlider"></div>
+                            <input type="text" class="form-control" id="saturate" placeholder="100">
+                        </div>
+                        <div class="slider-group">
+                            <label for="contrast">對比度</label>
+                            <div id="contrastSlider"></div>
+                            <input type="text" class="form-control" id="contrast" placeholder="100">
+                        </div>
+                        <div class="slider-group">
+                            <label for="brightness">亮度</label>
+                        <div id="brightnessSlider"></div>
+                            <input type="text" class="form-control" id="brightness" placeholder="100">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="linkColor">連結顏色</label>
+                            <input type="text" class="form-control" id="linkColor" placeholder="預設">
+                        </div>
+                        <div class="form-group">
+                            <label for="transition">漸變秒數</label>
+                            <input type="text" class="form-control" id="transition" placeholder="0">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">文字排版</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fontSize">文字大小</label>
+                            <input type="text" class="form-control" id="fontSize" placeholder="預設">
+                        </div>
+                        <div class="form-group">
+                            <label for="fontFamily">字體</label>
+                            <select id="fontFamily" class="form-control">
+                                <option value="">預設</option>
+                                <option value="微軟正黑體">微軟正黑體</option>
+                                <option value="新細明體">新細明體</option>
+                                <option value="細明體">細明體</option>
+                                <option value="Arial">Arial</option>
+                                <option value="Helvetica">Helvetica</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lineHeight">行高</label>
+                            <input type="text" class="form-control" id="lineHeight" placeholder="預設">
+                </div>
+                        <div class="form-group">
+                            <label for="letterSpacing">字距</label>
+                            <input type="text" class="form-control" id="letterSpacing" placeholder="預設">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">網站清單</div>
+                    <div class="form-group">
+                        <div class="list-label">
+                            <span>白名單</span>
+                            <span class="hint">（排除自動套用）</span>
+                        </div>
+                        <textarea id="whiteList" class="form-control" rows="3" placeholder="每行一個網址"></textarea>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0">
+                        <div class="list-label">
+                            <span>黑名單</span>
+                            <span class="hint">（強制套用）</span>
+                </div>
+                        <textarea id="blackList" class="form-control" rows="3" placeholder="每行一個網址"></textarea>
                     </div>
                 </div>
 
                 <button type="submit" id="save_btn">儲存設定</button>
                 </div>
 
-            <!-- Preview Column -->
+            <!-- 右欄：預覽 -->
             <div class="preview-section">
-                <div class="card" style="position: sticky; top: 20px;">
+                <div class="card" style="position: sticky; top: 16px;">
                     <div class="card-title">預覽效果</div>
                     <div id="fontModel">
-                        這是TEST測試文章會隨著配置選項而變動
-                        下面這首歌很好聽推薦給大家
+這是測試文章，會隨著配置選項而變動。
 
-                        I know just how to whisper
-                        And I know just how to cry
-                        I know just where to find the answers
-                        And I know just how to lie
+I know just how to whisper
+And I know just how to cry
+I know just where to find the answers
+And I know just how to lie
 
-                        I know just how to fake it
-                        I know just how to scheme
-                        I know just when to face the truth
-                        And then I know just when to dream
+I know just how to fake it
+I know just how to scheme
+I know just when to face the truth
+And then I know just when to dream
 
-                        <a id="link" href="https://chrome.google.com/webstore/detail/%E8%88%92%E9%81%A9%E9%96%B1%E8%AE%80/fafngnnaicjaodmdeekbnboekddgiohe">我是連結</a>
+<a id="link" href="#">我是連結</a>
 
-                        I know just where to touch you
-                        I know just what to prove
-                        I know when to pull you closer
-                        I know when to let you loose
+And I know the night is fading
+And I know the time's gonna fly
+And I'm never gonna tell you everything
+I've gotta tell you
+But I know I've gotta give it a try
 
-                        And I know the night is fading
-                        And I know the time's gonna fly
-                        And I'm never gonna tell you everything
-                        I've gotta tell you
-                        But I know I've gotta give it a try
-
-                        Making love out of nothing at all
-                        Out of nothing at all, out of nothing at all
+Making love out of nothing at all
                 </div>
                 </div>
             </div>
