@@ -142,19 +142,21 @@ chrome.action.onClicked.addListener(function(tab) {
 
 
 
-chrome.contextMenus.create({"title": "舒適閱讀", "id": "parent","contexts": ["all"]});
-chrome.contextMenus.create({
-    "title"   : "區塊舒適",
-    "parentId": "parent",
-    "id"      : "toBlock",
-    "contexts": ["page", "frame", "link", "editable", "image", "video", "audio"]
-})
-chrome.contextMenus.create({
-    "title"   : "區塊隱藏",
-    "parentId": "parent",
-    "id"      : "hideBlock",
-    "contexts": ["page", "frame", "link", "editable", "image", "video", "audio"]
-})
+chrome.runtime.onInstalled.addListener(function() {
+    chrome.contextMenus.create({"title": "舒適閱讀", "id": "parent", "contexts": ["all"]});
+    chrome.contextMenus.create({
+        "title"   : "區塊舒適",
+        "parentId": "parent",
+        "id"      : "toBlock",
+        "contexts": ["page", "frame", "link", "editable", "image", "video", "audio"]
+    });
+    chrome.contextMenus.create({
+        "title"   : "區塊隱藏",
+        "parentId": "parent",
+        "id"      : "hideBlock",
+        "contexts": ["page", "frame", "link", "editable", "image", "video", "audio"]
+    });
+});
 // chrome.contextMenus.create({
 //     "title"   : "選擇閱讀",
 //     "parentId": "parent",

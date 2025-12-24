@@ -251,7 +251,7 @@ $(function(){
         $isAutoRead.prop("checked", options.isAutoRead);
         $isFullscreen.prop("checked", options.isFullscreen);
 
-        $("input[name=matchcolors][value='"+options.matchcolors+"']").attr('checked',true);
+        $("input[name=matchcolors][value='"+options.matchcolors+"']").prop('checked', true);
 
         $( "#saturateSlider" ).slider({
             range: "min",
