@@ -17,13 +17,13 @@
     <script src="js/options.js"></script>
     <style type="text/css">
     :root {
-        --bg-primary: #111;
-        --bg-secondary: #1a1a1a;
-        --bg-card: rgba(24, 24, 24, 0.95);
-        --text-primary: #e0e0e0;
-        --text-secondary: #888;
-        --border-color: rgba(255, 255, 255, 0.08);
-        --accent: #555;
+        --bg-primary: #f5f5f7;
+        --bg-secondary: #fff;
+        --bg-card: #fff;
+        --text-primary: #1d1d1f;
+        --text-secondary: #6e6e73;
+        --border-color: rgba(0, 0, 0, 0.1);
+        --accent: #0071e3;
     }
 
     *, *::before, *::after {
@@ -104,6 +104,7 @@
         border-radius: 8px;
         padding: 18px;
         margin-bottom: 16px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
     }
 
     .card-title {
@@ -163,7 +164,8 @@
     }
 
     .color-option input:checked + .color-swatch {
-        border-color: #888;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 1px var(--accent);
     }
 
     .color-swatch .bg-half {
@@ -187,9 +189,9 @@
     }
 
     .color-option input:checked + .custom-option {
-        border-color: #888;
+        border-color: var(--accent);
         border-style: solid;
-        color: #ccc;
+        color: var(--text-primary);
     }
 
     /* Form Controls */
@@ -224,7 +226,7 @@
 
     .form-control:focus {
         outline: none;
-        border-color: #555 !important;
+        border-color: var(--accent) !important;
     }
 
     select.form-control {
@@ -258,7 +260,7 @@
     }
 
     .ui-slider {
-        background: #222 !important;
+        background: #e0e0e0 !important;
         border: none !important;
         border-radius: 3px !important;
         height: 5px !important;
@@ -266,18 +268,19 @@
     }
 
     .ui-slider .ui-slider-range {
-        background: #555 !important;
+        background: var(--accent) !important;
         border-radius: 3px !important;
     }
 
     .ui-slider .ui-slider-handle {
-        background: #ddd !important;
-        border: none !important;
+        background: #fff !important;
+        border: 1px solid #ccc !important;
         border-radius: 50% !important;
         width: 14px !important;
         height: 14px !important;
         top: -5px !important;
         cursor: grab !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.15) !important;
     }
 
     /* Checkboxes - 橫向排列 */
@@ -311,8 +314,8 @@
     }
 
     .checkbox-item input[type="checkbox"]:checked {
-        background: #555;
-        border-color: #555;
+        background: var(--accent);
+        border-color: var(--accent);
     }
 
     .checkbox-item input[type="checkbox"]:checked::after {
@@ -337,17 +340,17 @@
         padding: 12px 20px;
         font-size: 15px !important;
         font-weight: 600;
-        background: #333 !important;
-        border: 1px solid #444 !important;
-        border-radius: 5px !important;
-        color: #eee !important;
+        background: var(--accent) !important;
+        border: none !important;
+        border-radius: 8px !important;
+        color: #fff !important;
         cursor: pointer;
         transition: background 0.2s;
         margin-top: 10px;
     }
 
     #save_btn:hover {
-        background: #444 !important;
+        background: #0077ed !important;
     }
 
     /* Lists Section */
@@ -412,13 +415,13 @@
     }
 
     .font-tab:hover {
-        border-color: #555;
+        border-color: var(--accent);
     }
 
     .font-tab.active {
-        background: #333;
-        border-color: #555;
-        color: var(--text-primary);
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
     }
 
     .font-upload-area {
@@ -432,8 +435,8 @@
 
     .font-upload-area:hover,
     .font-upload-area.dragover {
-        border-color: #555;
-        background: rgba(255,255,255,0.02);
+        border-color: var(--accent);
+        background: rgba(0,113,227,0.03);
     }
 
     .upload-placeholder {
@@ -457,19 +460,19 @@
     }
 
     .clear-font-btn {
-        background: #444;
+        background: #e0e0e0;
         border: none;
         border-radius: 50%;
         width: 22px;
         height: 22px;
-        color: #ccc;
+        color: #666;
         cursor: pointer;
         font-size: 14px;
         line-height: 1;
     }
 
     .clear-font-btn:hover {
-        background: #555;
+        background: #ccc;
     }
     </style>
 </head>
