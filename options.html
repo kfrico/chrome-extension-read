@@ -1,305 +1,731 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <title>配置</title>
+    <title>舒適閱讀 - 配置</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/colorpicker.css" type="text/css" />
     <link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600&display=swap" rel="stylesheet">
     <script src="js/jquery.min.js"></script>
     <script src="js/jquery-ui.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/colorpicker.js"></script>
     <script src="js/options.js"></script>
     <style type="text/css">
+    :root {
+        --bg-primary: #f5f5f7;
+        --bg-secondary: #fff;
+        --bg-card: #fff;
+        --text-primary: #1d1d1f;
+        --text-secondary: #6e6e73;
+        --border-color: rgba(0, 0, 0, 0.1);
+        --accent: #0071e3;
+    }
+
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    html {
+        font-size: 14px !important;
+    }
+
     body {
-        background-image: url(images/bg.jpg);
+        font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        background: var(--bg-primary);
+        min-height: 100vh;
+        color: var(--text-primary);
+        line-height: 1.5;
+        font-size: 14px !important;
+        margin: 0;
+        padding: 0;
     }
+
+    .container {
+        max-width: 1200px;
+        padding: 24px 20px;
+        margin: 0 auto;
+    }
+
+    /* Header */
+    .page-header {
+        margin-bottom: 24px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .page-header h1 {
+        font-size: 22px !important;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin: 0 0 6px 0;
+    }
+
+    .page-header p {
+        color: var(--text-secondary);
+        font-size: 14px !important;
+        margin: 0;
+    }
+
+    /* Main Layout - 三欄式 */
+    .main-grid {
+        display: grid;
+        grid-template-columns: 300px 1fr 340px;
+        gap: 20px;
+        align-items: start;
+    }
+
+    @media (max-width: 1000px) {
+        .main-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+        .preview-section {
+            grid-column: span 2;
+        }
+    }
+
+    @media (max-width: 700px) {
+        .main-grid {
+            grid-template-columns: 1fr;
+        }
+        .preview-section {
+            grid-column: span 1;
+        }
+    }
+
+    /* Card Style */
+    .card {
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        padding: 18px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .card-title {
+        font-size: 15px !important;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: 14px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    /* Preview Panel */
+    #fontModel {
+        background: #081010;
+        color: #b58931;
+        border-radius: 6px;
+        padding: 20px;
+        line-height: 1.7;
+        font-size: 14px;
+        min-height: 220px;
+        transition: all 0.3s ease;
+    }
+
+    #fontModel #link {
+        color: inherit;
+        text-decoration: underline;
+    }
+
+    /* Color Scheme Options - 緊湊網格 */
+    .color-schemes {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+    }
+
+    .color-option {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .color-option input[type="radio"] {
+        position: absolute;
+        opacity: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .color-swatch {
+        display: flex;
+        border-radius: 5px;
+        overflow: hidden;
+        height: 34px;
+        border: 2px solid transparent;
+        transition: all 0.15s ease;
+    }
+
+    .color-option input:checked + .color-swatch {
+        border-color: var(--accent);
+        box-shadow: 0 0 0 1px var(--accent);
+    }
+
+    .color-swatch .bg-half {
+        flex: 2;
+    }
+
+    .color-swatch .text-half {
+        flex: 1;
+    }
+
+    .custom-option {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-secondary);
+        border: 1px dashed var(--border-color);
+        border-radius: 5px;
+        height: 34px;
+        color: var(--text-secondary);
+        font-size: 13px !important;
+    }
+
+    .color-option input:checked + .custom-option {
+        border-color: var(--accent);
+        border-style: solid;
+        color: var(--text-primary);
+    }
+
+    /* Form Controls */
+    .form-group {
+        margin-bottom: 12px;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .control-label, label {
+        display: block;
+        font-size: 13px !important;
+        font-weight: 500;
+        color: var(--text-secondary);
+        margin-bottom: 6px;
+    }
+
+    .form-control {
+        background: var(--bg-secondary) !important;
+        border: 1px solid var(--border-color) !important;
+        border-radius: 5px !important;
+        color: var(--text-primary) !important;
+        padding: 8px 10px !important;
+        font-size: 14px !important;
+        width: 100%;
+        height: auto !important;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--accent) !important;
+    }
+
+    select.form-control {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 10 10'%3E%3Cpath fill='%23888' d='M5 7L1 3h8z'/%3E%3C/svg%3E") !important;
+        background-repeat: no-repeat !important;
+        background-position: right 10px center !important;
+        padding-right: 28px !important;
+    }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 70px;
+        font-family: monospace;
+        font-size: 13px !important;
+        line-height: 1.5;
+    }
+
+    /* Sliders */
+    .slider-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+
+    .slider-group label {
+        font-size: 13px !important;
+        margin-bottom: 8px;
+    }
+
+    .ui-slider {
+        background: #e0e0e0 !important;
+        border: none !important;
+        border-radius: 3px !important;
+        height: 5px !important;
+        margin: 10px 0 8px !important;
+    }
+
+    .ui-slider .ui-slider-range {
+        background: var(--accent) !important;
+        border-radius: 3px !important;
+    }
+
+    .ui-slider .ui-slider-handle {
+        background: #fff !important;
+        border: 1px solid #ccc !important;
+        border-radius: 50% !important;
+        width: 14px !important;
+        height: 14px !important;
+        top: -5px !important;
+        cursor: grab !important;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.15) !important;
+    }
+
+    /* Checkboxes - 橫向排列 */
+    .checkbox-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+
+    .checkbox-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        background: var(--bg-secondary);
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 13px !important;
+    }
+
+    .checkbox-item input[type="checkbox"] {
+        appearance: none;
+        width: 16px;
+        height: 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 4px;
+        background: var(--bg-primary);
+        cursor: pointer;
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .checkbox-item input[type="checkbox"]:checked {
+        background: var(--accent);
+        border-color: var(--accent);
+    }
+
+    .checkbox-item input[type="checkbox"]:checked::after {
+        content: '';
+        position: absolute;
+        left: 5px;
+        top: 2px;
+        width: 4px;
+        height: 8px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+    }
+
+    .checkbox-item span {
+        color: var(--text-primary);
+    }
+
+    /* Save Button */
+    #save_btn {
+        width: 100%;
+        padding: 12px 20px;
+        font-size: 15px !important;
+        font-weight: 600;
+        background: var(--accent) !important;
+        border: none !important;
+        border-radius: 8px !important;
+        color: #fff !important;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-top: 10px;
+    }
+
+    #save_btn:hover {
+        background: #0077ed !important;
+    }
+
+    /* Lists Section */
+    .list-section {
+        margin-top: 10px;
+    }
+
+    .list-label {
+        font-size: 13px !important;
+        color: var(--text-secondary);
+        margin-bottom: 6px;
+        display: flex;
+        gap: 6px;
+    }
+
+    .list-label .hint {
+        opacity: 0.6;
+    }
+
+    /* Column sections */
+    .left-col, .middle-col {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Compact inputs in a row */
+    .input-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 12px;
+    }
+
+    /* Hide old radio styling */
     .radio {
-        margin-bottom: 15px;
+        display: none;
     }
-    .background_css {
-        width:68.2%;height:30px;display: inline-block;
+
+    /* Custom Font Section */
+    .custom-font-section {
+        margin-top: 12px;
+        padding-top: 12px;
+        border-top: 1px solid var(--border-color);
     }
-    .color_css {
-        width:31.8%;margin-left:-4px;height:30px;display: inline-block;
+
+    .custom-font-tabs {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 10px;
     }
-    #whiteList {
-        width: 100%;
+
+    .font-tab {
+        flex: 1;
+        padding: 8px 12px;
+        background: var(--bg-secondary);
+        border: 1px solid var(--border-color);
+        border-radius: 5px;
+        color: var(--text-secondary);
+        font-size: 13px;
+        cursor: pointer;
+        transition: all 0.15s ease;
     }
-    #blackList {
-        width: 100%;
+
+    .font-tab:hover {
+        border-color: var(--accent);
+    }
+
+    .font-tab.active {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #fff;
+    }
+
+    .font-upload-area {
+        border: 2px dashed var(--border-color);
+        border-radius: 6px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .font-upload-area:hover,
+    .font-upload-area.dragover {
+        border-color: var(--accent);
+        background: rgba(0,113,227,0.03);
+    }
+
+    .upload-placeholder {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        color: var(--text-secondary);
+    }
+
+    .upload-placeholder small {
+        font-size: 12px;
+        opacity: 0.7;
+    }
+
+    .upload-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: var(--text-primary);
+    }
+
+    .clear-font-btn {
+        background: #e0e0e0;
+        border: none;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        color: #666;
+        cursor: pointer;
+        font-size: 14px;
+        line-height: 1;
+    }
+
+    .clear-font-btn:hover {
+        background: #ccc;
     }
     </style>
 </head>
 <body>
 <div class="container">
-    <div class="row">
-        <form role="form">
-            <div class="col-md-8 col-md-push-4">
-                <h3>測試文章</h3>
-                <div id="fontModel">
-                    這是TEST測試文章會隨著配置選項而變動
-                    下面這首歌很好聽推薦給大家
-                    I know just how to whisper
-                    And I know just how to cry
-                    I know just where to find the answers
-                    And I know just how to lie
-                    I know just how to fake it
-                    I know just how to scheme
-                    I know just when to face the truth
-                    And then I know just when to dream
-                    <a id="link" href="https://chrome.google.com/webstore/detail/%E8%88%92%E9%81%A9%E9%96%B1%E8%AE%80/fafngnnaicjaodmdeekbnboekddgiohe">我是連結</a>
-                    I know just where to touch you
-                    I know just what to prove
-                    I know when to pull you closer
-                    I know when to let you loose
-                    And I know the night is fading
-                    And I know the time's gonna fly
-                    And I'm never gonna
-                    tell you everything I've gotta tell you
-                    But I know I've gotta give it a try
-                    And I know the roads to riches
-                    And I know the ways to fame
-                    I know all the rules and then I know how to break'em
-                    And I always know the name of the game
+    <div class="page-header">
+        <h1>舒適閱讀設定</h1>
+        <p>自訂您的閱讀體驗</p>
+    </div>
 
-                    But I don't know how to leave you
-                    And I'll never let you fall
-                    And I don't know how you do it
-
-                    Making love out of nothing at all
-                    Out of nothing at all, out of nothing at all
-
-                    Everytime I see you all the rays of the sun
-                    are streaming through the waves in your hair
-                    And every star in the sky
-                    is taking aim at your eyes like a spotlight
-                    The beating of my heart is a drum and it's lost
-                    and it's looking for a rhythm like you
-                    You can take the darkness at the pit of the night
-                    And turn into a beacon burning endlessly bright
-                    I've gotta follow it 'cause everything I know
-                    Well, it's nothing 'till I give it to you
-
-                    I can make the runner stumble
-                    I can make the final block
-                    and I can make every tackle at the sound of the whistle
-                    Make all the stadiums rock
-                    I can make tonight forever
-                    Or I can make it disappear by the dawn
-                    I can make you every promise that has ever been made
-                    And I can make all your demons be gone
-
-                    But I'm never gonna make it without you
-                    Do you really wanna see me crawl
-                    And I'm never gonna make it like you do
-                    Making love out of nothing at all
-                    Out of nothing at all, out of nothing at all
-                </div>
+    <form role="form">
+        <div class="main-grid">
+            <!-- 左欄：配色 + 進階選項 -->
+            <div class="left-col">
+                <div class="card">
+                    <div class="card-title">配色方案</div>
+                    <div class="color-schemes">
+                        <label class="color-option">
+                            <input type="radio" name="matchcolors" class="matchcolors" value="option1">
+                            <div class="color-swatch">
+                                <div class="bg-half" style="background:#777;"></div>
+                                <div class="text-half" style="background:#222;"></div>
             </div>
-            <div class="col-md-4 col-md-pull-8">
-                <h3>配置</h3>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="matchcolors" class="matchcolors" value="option1">
-                        <span style="background:#777;" class="background_css"></span>
-                        <span style="background:#222;" class="color_css"></span>
                     </label>
+                        <label class="color-option">
+                            <input type="radio" name="matchcolors" class="matchcolors" value="option2">
+                            <div class="color-swatch">
+                                <div class="bg-half" style="background:#415062;"></div>
+                                <div class="text-half" style="background:#fff6e6;"></div>
                 </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="matchcolors" class="matchcolors" value="option2">
-                        <span style="background:#415062;" class="background_css"></span>
-                        <span style="background:#fff6e6;" class="color_css"></span>
                     </label>
+                        <label class="color-option">
+                            <input type="radio" name="matchcolors" class="matchcolors" value="option3">
+                            <div class="color-swatch">
+                                <div class="bg-half" style="background:#414441;"></div>
+                                <div class="text-half" style="background:#d5cecd;"></div>
                 </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="matchcolors" class="matchcolors" value="option3">
-                        <span style="background:#414441;" class="background_css"></span>
-                        <span style="background:#d5cecd;" class="color_css"></span>
                     </label>
+                        <label class="color-option">
+                            <input type="radio" name="matchcolors" class="matchcolors" value="option4">
+                            <div class="color-swatch">
+                                <div class="bg-half" style="background:#6a7962;"></div>
+                                <div class="text-half" style="background:#081408;"></div>
                 </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="matchcolors" class="matchcolors" value="option4">
-                        <span style="background:#6a7962;" class="background_css"></span>
-                        <span style="background:#081408;" class="color_css"></span>
                     </label>
+                        <label class="color-option">
+                            <input type="radio" name="matchcolors" class="matchcolors" value="option5">
+                            <div class="color-swatch">
+                                <div class="bg-half" style="background:#c5a562;"></div>
+                                <div class="text-half" style="background:#101020;"></div>
                 </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="matchcolors" class="matchcolors" value="option5">
-                        <span style="background:#c5a562;" class="background_css"></span>
-                        <span style="background:#101020;" class="color_css"></span>
                     </label>
+                        <label class="color-option">
+                            <input type="radio" name="matchcolors" class="matchcolors" value="option6">
+                            <div class="color-swatch">
+                                <div class="bg-half" style="background:#d5c6ac;"></div>
+                                <div class="text-half" style="background:#494c49;"></div>
                 </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="matchcolors" class="matchcolors" value="option6">
-                        <span style="background:#d5c6ac;" class="background_css"></span>
-                        <span style="background:#494c49;" class="color_css"></span>
                     </label>
+                        <label class="color-option">
+                            <input type="radio" name="matchcolors" class="matchcolors" value="option7">
+                            <div class="color-swatch">
+                                <div class="bg-half" style="background:#b5eecd;"></div>
+                                <div class="text-half" style="background:#414c41;"></div>
                 </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="matchcolors" class="matchcolors" value="option7">
-                        <span style="background:#b5eecd;" class="background_css"></span>
-                        <span style="background:#414c41;" class="color_css"></span>
                     </label>
+                        <label class="color-option">
+                            <input type="radio" name="matchcolors" class="matchcolors" value="option8">
+                            <div class="color-swatch">
+                                <div class="bg-half" style="background:#081010;"></div>
+                                <div class="text-half" style="background:#b58931;"></div>
                 </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="matchcolors" class="matchcolors" value="option8">
-                        <span style="background:#081010;" class="background_css"></span>
-                        <span style="background:#b58931;" class="color_css"></span>
                     </label>
-                </div>
-                <div class="radio">
-                  <label>
+                        <label class="color-option">
                     <input type="radio" name="matchcolors" class="matchcolors" value="option9">
-                    自定義
+                            <div class="custom-option">自定義</div>
                   </label>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
+                    <div class="input-row">
                         <div class="form-group">
-                            <label class="control-label" for="background">背景顏色</label>
+                            <label for="background">背景色</label>
                             <input type="text" class="form-control" id="background">
                         </div>
-                    </div>
-                    <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label" for="color">文字顏色</label>
+                            <label for="color">文字色</label>
                             <input type="text" class="form-control" id="color">
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="control-label" for="saturate">飽和度</label>
-                        <div id="saturateSlider"></div>
-                        <br>
-                        <input type="text" class="form-control" id="saturate" placeholder="預設">
-                        <br>
-                    </div>
-                    <div class="col-md-6">
-                        <label class="control-label" for="contrast">對比度</label>
-                        <div id="contrastSlider"></div>
-                        <br>
-                        <input type="text" class="form-control" id="contrast" placeholder="預設">
-                        <br>
+
+                <div class="card">
+                    <div class="card-title">進階選項</div>
+                    <div class="checkbox-grid">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="isImagesRemove" value="is">
+                            <span>隱藏圖片</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="isSmartRead" value="is">
+                            <span>智能閱讀</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="isAutoRead" value="is">
+                            <span>自動套用</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="isFullscreen" value="is">
+                            <span>全螢幕</span>
+                        </label>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label class="control-label" for="brightness">亮度</label>
+            </div>
+
+            <!-- 中欄：調整設定 -->
+            <div class="middle-col">
+                <div class="card">
+                    <div class="card-title">顯示調整</div>
+                    <div class="slider-row">
+                        <div class="slider-group">
+                            <label for="saturate">飽和度</label>
+                            <div id="saturateSlider"></div>
+                            <input type="text" class="form-control" id="saturate" placeholder="100">
+                        </div>
+                        <div class="slider-group">
+                            <label for="contrast">對比度</label>
+                            <div id="contrastSlider"></div>
+                            <input type="text" class="form-control" id="contrast" placeholder="100">
+                        </div>
+                        <div class="slider-group">
+                            <label for="brightness">亮度</label>
                         <div id="brightnessSlider"></div>
-                        <br>
-                        <input type="text" class="form-control" id="brightness" placeholder="預設">
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label" for="linkColor">連結顏色</label>
-                            <input type="text" class="form-control" id="linkColor" placeholder="預設文字顏色">
+                            <input type="text" class="form-control" id="brightness" placeholder="100">
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
+                    <div class="form-row">
                         <div class="form-group">
-                            <label class="control-label" for="lineHeight">文字行高</label>
-                            <input type="text" class="form-control" id="lineHeight" placeholder="預設">
+                            <label for="linkColor">連結顏色</label>
+                            <input type="text" class="form-control" id="linkColor" placeholder="預設">
                         </div>
-                    </div>
-                    <div class="col-md-6">
                         <div class="form-group">
-                            <label class="control-label" for="letterSpacing">文字間距</label>
-                            <input type="text" class="form-control" id="letterSpacing" placeholder="預設">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label" for="fontSize">文字大小</label>
-                            <input type="text" class="form-control" id="fontSize" placeholder="預設">
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="fontFamily">文字字體</label>
-                            <select id="fontFamily" class="form-control">
-                                <option value="">預設</option>
-                                <option style="font-family:微軟正黑體" value="微軟正黑體">微軟正黑體</option>
-                                <option style="font-family:新細明體" value="新細明體">新細明體</option>
-                                <option style="font-family:細明體" value="細明體">細明體</option>
-                                <option style="font-family:宋體" value="宋體">宋體</option>
-                                <option style="font-family:Arial" value="Arial">Arial</option>
-                                <option style="font-family:Helvetica" value="Helvetica">Helvetica</option>
-                                <option style="font-family:sans-serif" value="sans-serif">sans-serif</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="control-label" for="transition">漸變秒數</label>
+                            <label for="transition">漸變秒數</label>
                             <input type="text" class="form-control" id="transition" placeholder="0">
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                    <label>
-                        白名單(自動舒適閱讀將不會執行)
-                    </label>
-                        <textarea id="whiteList" rows="10"></textarea>
+
+                <div class="card">
+                    <div class="card-title">文字排版</div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fontSize">文字大小</label>
+                            <input type="text" class="form-control" id="fontSize" placeholder="預設">
+                        </div>
+                        <div class="form-group">
+                            <label for="fontFamily">字體</label>
+                            <select id="fontFamily" class="form-control">
+                                <option value="">預設</option>
+                                <option value="微軟正黑體">微軟正黑體</option>
+                                <option value="新細明體">新細明體</option>
+                                <option value="細明體">細明體</option>
+                                <option value="Arial">Arial</option>
+                                <option value="Helvetica">Helvetica</option>
+                                <option value="__custom__">自定義字體...</option>
+                            </select>
+                        </div>
                     </div>
+                    <div class="form-group custom-font-section" id="customFontSection" style="display:none;">
+                        <label>自定義字體</label>
+                        <div class="custom-font-tabs">
+                            <button type="button" class="font-tab active" data-tab="upload">上傳字體</button>
+                            <button type="button" class="font-tab" data-tab="local">本地字體</button>
+                        </div>
+                        <div class="font-tab-content" id="uploadTab">
+                            <div class="font-upload-area" id="fontUploadArea">
+                                <input type="file" id="fontFileInput" accept=".ttf,.otf,.woff,.woff2" style="display:none;">
+                                <div class="upload-placeholder" id="uploadPlaceholder">
+                                    <span>點擊或拖曳字體檔案</span>
+                                    <small>.ttf, .otf, .woff, .woff2</small>
+                                </div>
+                                <div class="upload-info" id="uploadInfo" style="display:none;">
+                                    <span id="uploadedFontName"></span>
+                                    <button type="button" id="clearFontBtn" class="clear-font-btn">×</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="font-tab-content" id="localTab" style="display:none;">
+                            <input type="text" class="form-control" id="localFontName" placeholder="輸入系統字體名稱，如：思源黑體">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="lineHeight">行高</label>
+                            <input type="text" class="form-control" id="lineHeight" placeholder="預設">
                 </div>
-                <br>
-                <div class="row">
-                    <div class="col-md-12">
-                    <label>
-                        黑名單(名單內的網址將會自動執行舒適閱讀)
-                    </label>
-                        <textarea id="blackList" rows="10"></textarea>
+                        <div class="form-group">
+                            <label for="letterSpacing">字距</label>
+                            <input type="text" class="form-control" id="letterSpacing" placeholder="預設">
+                        </div>
                     </div>
                 </div>
 
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" id="isImagesRemove" value="is">
-                        隱藏圖片只留文字
-                    </label>
+                <div class="card">
+                    <div class="card-title">網站清單</div>
+                    <div class="form-group">
+                        <div class="list-label">
+                            <span>白名單</span>
+                            <span class="hint">（排除自動套用）</span>
+                        </div>
+                        <textarea id="whiteList" class="form-control" rows="3" placeholder="每行一個網址"></textarea>
+                    </div>
+                    <div class="form-group" style="margin-bottom:0">
+                        <div class="list-label">
+                            <span>黑名單</span>
+                            <span class="hint">（強制套用）</span>
+                </div>
+                        <textarea id="blackList" class="form-control" rows="3" placeholder="每行一個網址"></textarea>
+                    </div>
                 </div>
 
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" id="isSmartRead" value="is">
-                        智能閱讀
-                    </label>
+                <button type="submit" id="save_btn">儲存設定</button>
                 </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" id="isAutoRead" value="is">
-                        自動舒適閱讀
-                    </label>
+
+            <!-- 右欄：預覽 -->
+            <div class="preview-section">
+                <div class="card" style="position: sticky; top: 16px;">
+                    <div class="card-title">預覽效果</div>
+                    <div id="fontModel">
+這是測試文章，會隨著配置選項而變動。
+
+I know just how to whisper
+And I know just how to cry
+I know just where to find the answers
+And I know just how to lie
+
+I know just how to fake it
+I know just how to scheme
+I know just when to face the truth
+And then I know just when to dream
+
+<a id="link" href="#">我是連結</a>
+
+And I know the night is fading
+And I know the time's gonna fly
+And I'm never gonna tell you everything
+I've gotta tell you
+But I know I've gotta give it a try
+
+Making love out of nothing at all
                 </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" id="isFullscreen" value="is">
-                        全螢幕閱讀
-                    </label>
                 </div>
-                <br>
-                <button type="submit" id="save_btn" class="btn btn-primary">儲存</button>
+            </div>
             </div>
         </form>
-    </div>
 </div>
 </body>
 </html>
